@@ -21,10 +21,10 @@ jobs:
         run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
 
       - name: Build the Docker image
-        run: docker build -f Dockerfile -t omerkhan7210/zeyr:latest .
+        run: docker build -f Dockerfile -t omerkhan7210/zeyr-front:latest .
 
       - name: Push to Docker Hub
-        run: docker push omerkhan7210/zeyr:latest
+        run: docker push omerkhan7210/zeyr-front:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,6 +48,6 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             sudo yum -y update
-            sudo docker pull omerkhan7210/zeyr:latest
-            sudo docker rm -f zeyr-container || true
-            sudo docker run -d -p 3000:80 --name zeyr-container omerkhan7210/zeyr
+            sudo docker pull omerkhan7210/zeyr-front:latest
+            sudo docker rm -f zeyr-front-container || true
+            sudo docker run -d -p 3000:80 --name zeyr-front-container omerkhan7210/zeyr-front
