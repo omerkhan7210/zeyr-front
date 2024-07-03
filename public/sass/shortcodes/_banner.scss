@@ -1,0 +1,166 @@
+.konte-banner {
+	position: relative;
+	overflow: hidden;
+	font-size: 10px;
+
+	a {
+		color: inherit;
+		display: block;
+		overflow: hidden;
+
+		&:hover {
+			color: inherit;
+		}
+	}
+
+	img {
+		transition: transform 1s;
+		display: block;
+		width: 100%;
+	}
+
+	.konte-button {
+		margin-top: 15px;
+
+		&.button-underline {
+			text-transform: none;
+
+			&.large {
+				@include font-size(20/16);
+				font-weight: 400;
+			}
+		}
+
+		&.large {
+			margin-top: 25px;
+		}
+	}
+
+	&.text-position-center .konte-banner__content {
+		text-align: center;
+	}
+
+	&.text-position-right .konte-banner__content {
+		text-align: right;
+		left: auto;
+		right: 0;
+	}
+
+	&.text-position-top-left .konte-banner__content {
+		top: 0;
+		transform: none;
+	}
+
+	&.text-position-top-center .konte-banner__content {
+		text-align: center;
+		top: 0;
+		transform: none;
+	}
+
+	&.text-position-top-right .konte-banner__content {
+		text-align: right;
+		top: 0;
+		transform: none;
+	}
+
+	&.text-position-bottom-left .konte-banner__content {
+		top: auto;
+		bottom: 0;
+		transform: none;
+	}
+
+	&.text-position-bottom-center .konte-banner__content {
+		text-align: center;
+		top: auto;
+		bottom: 0;
+		transform: none;
+	}
+
+	&.text-position-bottom-right .konte-banner__content {
+		text-align: right;
+		top: auto;
+		bottom: 0;
+		transform: none;
+	}
+
+	&.color-scheme-light {
+		color: #fff;
+	}
+
+	&.color-scheme-dark {
+		color: $color__dark;
+	}
+
+	&:hover {
+		img {
+			transform: scale(1.1);
+		}
+	}
+}
+
+.konte-banner__content {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 100%;
+	padding: 50px;
+	transform: translate(0, -50%);
+}
+
+.konte-banner__tagline {
+	font-size: 2em;
+	display: block;
+}
+
+.konte-banner__text {
+	font-size: 3em;
+	font-weight: 500;
+	line-height: (34/30);
+	display: block;
+}
+
+.konte-banner__description {
+	font-size: 1.4em;
+	display: block;
+	margin: 0.43em 0 1.43em 0;
+}
+
+.konte-banner--button-visible-hover {
+	.konte-banner__tagline,
+	.konte-banner__text,
+	.konte-banner__description,
+	.konte-button {
+		transform: translateY(52px);
+		transition: 0.4s;
+	}
+
+	.konte-button {
+		opacity: 0;
+	}
+
+	&:hover {
+		.konte-banner__tagline,
+		.konte-banner__text,
+		.konte-banner__description,
+		.konte-button  {
+			transform: none;
+		}
+
+		.konte-button {
+			opacity: 1;
+			transition-delay: 0.1s;
+		}
+	}
+}
+
+.konte-banner--font-normal {
+	.konte-banner__text {
+		font-weight: 400;
+	}
+}
+
+.konte-banner--font-bold {
+	.konte-banner__text {
+		font-weight: 700;
+	}
+}

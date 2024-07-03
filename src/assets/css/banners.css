@@ -1,0 +1,140 @@
+.section-banners .section-banners-container {
+    padding: 40px;
+    gap: 20px;
+    margin: 0 auto
+}
+
+.section-explore-collections .section-banners-container .section-banners__banner,
+.section-banners .section-banners-container .section-banners__banner {
+    text-decoration: none
+}
+
+.section-banners .section-banners-container .section-banners__banner-title {
+    margin: 20px auto 0;
+    font-size: 20px;
+    line-height: 28px;
+    text-transform: uppercase;
+    text-decoration: none;
+    width: fit-content
+}
+
+.section-explore-collections .section-banners-container {
+    gap: 20px;
+    margin: 0 auto;
+    padding: 0 40px
+}
+
+.section-explore-collection-container {
+    padding: 50px 0;
+    margin: 0 auto
+}
+
+.section-explore-collections .section-banners-container .section-banners__banner-title {
+    width: fit-content;
+    margin: 6px auto auto
+}
+
+.section-explore-collections .section-banners-container .section-banners__banner {
+    max-width: 118px;
+    height: auto
+}
+
+.section-explore-collections .section-banners-container .section-banners__banner img {
+    aspect-ratio: 118/164;
+    object-fit: cover;
+    width: auto;
+    height: 164px;
+    max-width: 118px
+}
+
+.section-explore-collections .section-explore-collection-container .section-banners__banner-text p {
+    font-size: 12px;
+    line-height: 13px
+}
+
+.section-explore-collections .section-explore-collection-container .section-banners__banner-text {
+    margin: 50px auto 0;
+    padding: 0 15px
+}
+
+.section-explore-collections .section-banners-container.one-column .section-banners__banner,
+.section-banners .section-banners-container.one-column .section-banners__banner {
+    flex: 0 0 100%
+}
+
+.section-explore-collections .section-banners-container.two-column .section-banners__banner,
+.section-banners .section-banners-container.two-column .section-banners__banner {
+    flex: 0 0 calc(50% - 10px)
+}
+
+.section-explore-collections .section-banners-container.three-column .section-banners__banner,
+.section-banners .section-banners-container.three-column .section-banners__banner {
+    flex: 0 0 calc(33% - 10px)
+}
+
+.section-explore-collections .section-banners-container.four-column .section-banners__banner,
+.section-banners .section-banners-container.four-column .section-banners__banner {
+    flex: 0 0 calc(25% - 15px)
+}
+
+.section-explore-collections .section-banners-container.five-column .section-banners__banner,
+.section-banners .section-banners-container.five-column .section-banners__banner {
+    flex: 0 0 calc(20% - 16px)
+}
+
+.section-explore-collections .section-banners-container.five-column .section-banners__banner-title,
+.section-banners .section-banners-container.five-column .section-banners__banner-title,
+.section-explore-collections .section-banners-container.four-column .section-banners__banner-title,
+.section-banners .section-banners-container.four-column .section-banners__banner-title {
+    font-size: 15px;
+    line-height: 18px
+}
+
+.section-explore-collection-container .section-banners__banner-btn-container {
+    padding-bottom: 30px
+}
+
+@media (max-width: 768px) {
+    .section-explore-collections .section-banners-container,
+    .section-banners .section-banners-container {
+        flex-wrap: wrap;
+        padding: 0 15px
+    }
+    .section-explore-collections .section-banners-container.one-column-mobile,
+    .section-banners .section-banners-container.one-column-mobile {
+        gap: 30px
+    }
+    .section-explore-collections .section-banners-container.three-column-mobile,
+    .section-banners .section-banners-container.three-column-mobile,
+    .section-explore-collections .section-banners-container.two-column-mobile,
+    .section-banners .section-banners-container.two-column-mobile {
+        gap: 10px
+    }
+    .section-explore-collections .section-banners-container.three-column-mobile .section-banners__banner,
+    .section-banners .section-banners-container.three-column-mobile .section-banners__banner {
+        flex: 0 0 calc(33% - 6px)
+    }
+    .section-explore-collections .section-banners-container.two-column-mobile .section-banners__banner,
+    .section-banners .section-banners-container.two-column-mobile .section-banners__banner {
+        flex: 0 0 calc(50% - 5px)
+    }
+    .section-explore-collections .section-banners-container.one-column-mobile .section-banners__banner,
+    .section-banners .section-banners-container.one-column-mobile .section-banners__banner {
+        flex: 0 0 100%
+    }
+    .section-explore-collections .section-banners-container:not(.one-column-mobile) .section-banners__banner-title,
+    .section-banners .section-banners-container:not(.one-column-mobile) .section-banners__banner-title {
+        font-size: 12px;
+        line-height: 15px;
+        margin-top: 10px
+    }
+    .section-explore-collections .section-banners-container.two-column .section-banners__banner:after,
+    .section-banners .section-banners-container.two-column .section-banners__banner-title:after {
+        content: none
+    }
+    .section-explore-collections .section-explore-collection-container .section-banners__banner-text {
+        padding-top: 10px
+    }
+}
+
+/*# sourceMappingURL=/cdn/shop/t/300/assets/banners.css.map?v=116378178620621957721689270882 */

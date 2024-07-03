@@ -1,0 +1,468 @@
+/**
+ * -------------------------------------------------------------
+ * Sorting
+ * -------------------------------------------------------------
+ */
+
+div.mobile .facet-filters__filter-item input,
+div.desktop .facet-filters__filter-item input,
+.sorting__list input {
+    clip: rect(0, 0, 0, 0);
+    overflow: hidden;
+    position: absolute;
+    height: 1px;
+    width: 1px;
+}
+
+.sort__check {
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    margin: 0;
+}
+
+.sorting__list label {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 1rem;
+}
+
+.sorting__list input:checked+label .sort__check:after {
+    content: '';
+    width: .5rem;
+    height: .5rem;
+    background: #000000;
+    border-radius: 50%;
+}
+
+/**
+ * -------------------------------------------------------------
+ * Price Range
+ * -------------------------------------------------------------
+ */
+
+.facets__price-minmax {
+    gap: 40px;
+    margin-bottom: 1.5rem;
+}
+
+.facets__price-minmax>div {
+    flex: 0 0 calc(50% - 20px);
+}
+
+.facets__price-minmax input {
+    width: calc(100% - 32px);
+    margin-left: 1rem;
+    padding: 10px 0;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid;
+    border-radius: 0;
+}
+
+.price-range__slider {
+    position: relative;
+    height: 16px;
+}
+
+.price-range__slider input {
+    pointer-events: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    position: absolute;
+    overflow: hidden;
+    left: 0;
+    top: 0;
+    outline: none;
+    height: 16px;
+    width: 100%;
+    margin: 0;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+    height: 1px;
+    background: #000000;
+}
+
+input[type='range']::-webkit-slider-thumb {
+    pointer-events: all;
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    border-radius: 100%;
+    border: none;
+    margin-top: -3.5px;
+    z-index: 1;
+    width: .5rem;
+    height: .5rem;
+    cursor: ew-resize;
+    background: #000000;
+}
+
+@media screen and (max-width: 767px) {
+
+    .price-range__slider,
+    .price-range__slider input {
+        height: 2rem;
+    }
+
+    input[type='range']::-webkit-slider-thumb {
+        width: 1rem;
+        height: 1rem;
+        margin-top: -7.5px;
+    }
+}
+
+.facet-container .details__content {
+    padding: 1rem 2rem;
+}
+
+.facet-container .details__content {
+    background: var(--color-primary-background);
+    margin-top: 1px;
+}
+
+.facet--filter .details__content {
+    width: 100%;
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.facet--filter .facet--horizontal #FacetFiltersForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.facet--filter .facet--vertical .details__content.content--floating {
+    padding: 0;
+}
+
+.filter-vertical-placeholder {
+    display: none;
+}
+
+/* filter drop override
+    - there was an issue with dropdown not working 
+*/
+div.drawer .filter__item[open]>.details__content {
+    max-height: 1000px;
+    visibility: visible;
+    opacity: 1;
+}
+
+div.drawer .filter__item[open]>.details__content .details__content-inner {
+    transform: translateY(0);
+}
+
+div.drawer .sorting__list {
+    list-style: none;
+    padding-left: 0px;
+}
+
+/* Desktop filter */
+div.desktop {
+    display: none;
+}
+
+div.mobile {
+    display: flex;
+}
+
+div.desktop .drawer__container {
+    width: 500px;
+    max-width: 100%;
+    padding: 0px;
+}
+
+div .drawer__container .drawer__header {
+    padding: 20px;
+    margin: 0 auto;
+}
+
+div.desktop .drawer__container .drawer__body {
+    padding: 0px;
+}
+
+div.mobile .drawer__container ul,
+div.desktop .drawer__container ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+div.mobile .sorting__list label,
+div.desktop .sorting__list label {
+    margin-bottom: 0px;
+}
+
+div.mobile .drawer__container ul li,
+div.desktop .drawer__container ul li {
+    cursor: pointer;
+    padding: 13px 0;
+}
+
+div.desktop .drawer__container #FacetFiltersForm {
+    display: flex;
+    /* padding: 0 14px; */
+    height: 100%;
+    /* gap: 15px; */
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+
+div.desktop .drawer__container .facet-filters__types-container {
+    border-right: 1px solid var(--color-border);
+}
+
+div.desktop .drawer__container .facet-filters__filters-container,
+div.desktop .drawer__container .facet-filters__types-container {
+    width: 50%;
+    /* width: 228px;
+  min-width: 228px;
+  max-width: 228px; */
+    margin: 0px;
+    padding: 15px;
+}
+
+div.desktop .drawer__container .facet-filters__filters-container .facet-filters__filter {
+    display: none;
+    padding-top: 0px;
+}
+
+div.mobile .drawer__container .sorting__list .sort__check,
+div.desktop .drawer__container .sorting__list .sort__check {
+    display: none;
+}
+
+div.mobile li input:checked+label::before,
+div.desktop .facet-filters__filter-item input:checked+label::before {
+    content: "•";
+    font-size: 16px;
+    vertical-align: bottom;
+}
+
+div.desktop .facet-filters__type.active::before {
+    content: "•";
+    font-size: 11px;
+    vertical-align: bottom;
+}
+
+.drawer__container .drawer__heading {
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+div.desktop .facet-filters__filter[data-filter="size"] ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+div .drawer__container .drawer__footer {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: center;
+    padding: 15px;
+    background-color: white;
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+}
+
+div .drawer__container .drawer__footer div,
+div .drawer__container .drawer__footer button {
+    flex: 1;
+}
+
+div .drawer__container .drawer__footer button {
+    padding: 15px 0;
+    height: 48px;
+}
+
+div .drawer__container .drawer__footer div {
+    padding: 0px;
+}
+
+div .drawer__container .drawer__footer div a {
+    padding: 15px 0;
+    width: 100%;
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    text-align: center;
+}
+
+/* Facet drawer mobile */
+
+div.mobile .drawer__container {
+    padding: 0px;
+}
+
+div.mobile facet-filters-form .filter__item {
+    margin: 0;
+}
+
+div.drawer--filter.mobile facet-filters-form .filter__item {
+    border-bottom: none;
+}
+
+div.mobile facet-filters-form .filter__item:last-child {
+    border-bottom: 1px solid var(--color-border);
+}
+
+div.mobile .drawer__container .drawer__body {
+    padding-top: 0px;
+    border-top: none
+}
+
+div #FacetFiltersForm .filter__item {
+    border-top: 1px solid var(--color-border);
+    padding: 15px 0px;
+}
+
+div.mobile #FacetFiltersForm .facets__summary {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 13px;
+    padding: 0 15px;
+}
+
+div.mobile .filter__item[open]>.details__content {
+    margin-top: 15px;
+}
+
+div.mobile .filter__item[open] {
+    border-top: 1px solid black !important;
+    border-bottom: 1px solid black !important;
+    padding-bottom: 0px !important;
+}
+
+div.mobile .filter__item:last-child[open] {
+    border-bottom: none !important;
+}
+
+div.mobile .filter__item[open]+details {
+    border-top: none !important;
+}
+
+div.mobile facet-filters-form .details__content {
+    padding: 0;
+}
+
+div.mobile facet-filters-form .sorting__list li {
+    border-top: 1px solid var(--color-border);
+    padding: 15px !important;
+    display: flex;
+}
+
+div.mobile facet-filters-form .sorting__list li label {
+    padding: 0 !important;
+}
+
+.facet--no-active {
+    display: none !important;
+}
+
+div.mobile facet-filters-form .facet-filters__filter-item {
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    padding: 0 !important;
+}
+
+div.mobile facet-filters-form .facet-filters__filter-item label {
+    width: 100%;
+    padding: 15px;
+}
+
+div.mobile facet-filters-form .sorting__list {
+    margin: 0;
+}
+
+div.mobile .filter__item.filter--price .details__content {
+    padding: 0 15px 15px 15px !important;
+}
+
+div.mobile .filter__item .details__content-inner.size {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--color-border);
+}
+
+div.mobile .filter__item .details__content-inner.size li {
+    border-right: 1px solid var(--color-border);
+    border-top: none;
+    border-bottom: 1px solid var(--color-border);
+}
+
+div.mobile .filter__item .details__content-inner.size li:nth-child(4n+4) {
+    border-right: none;
+}
+
+
+@media screen and (min-width: 769px) {
+    .facet--horizontal .details__content {
+        padding: 2rem 70px;
+    }
+
+    div.desktop {
+        display: flex;
+    }
+
+    div.mobile {
+        display: none;
+    }
+
+    .facet--filter .facet--horizontal #FacetFiltersForm {
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    .facet--filter .facet--horizontal .filter__item {
+        border: none;
+    }
+
+    .toolbar .facet--filter .facet--vertical {
+        position: absolute;
+        top: 114px;
+        min-width: 374px;
+    }
+
+    .facet--filter .facet--vertical .details__content.content--floating {
+        position: initial;
+        padding: 0 2rem 0 0;
+    }
+
+    .filter-vertical-placeholder {
+        display: block;
+        flex: 0 0 375px;
+
+    }
+
+    .facet--filter .facet--vertical .toolbar__item {
+        padding: 0;
+        border: none;
+    }
+
+    .facet--filter .facet--vertical .details__icon {
+        display: none;
+    }
+
+    .facet--filter .facet--vertical .facet-container {
+        width: 100%;
+    }
+}

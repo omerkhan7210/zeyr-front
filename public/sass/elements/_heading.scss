@@ -1,0 +1,27 @@
+.konte-heading-button{
+	font-weight: 400;
+	display: flex;
+	justify-content: space-between;
+    margin: 0;
+    align-items: center;
+
+	.heading-link{
+	    font-size: 1rem;
+	    text-transform: uppercase;
+	}
+}
+
+@media (max-width: 767px) {
+	.konte-heading,
+	.konte-heading .heading-link{
+		display: block;
+	}
+
+	.konte-heading .heading-link{
+		margin-top: 25px;
+	}
+
+	.konte-heading-button {
+		font-size: 24px;
+	}
+}

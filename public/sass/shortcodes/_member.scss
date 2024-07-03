@@ -1,0 +1,41 @@
+.konte-team-member {
+	position: relative;
+	margin-bottom: 40px;
+
+	img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+}
+
+.konte-team-member__info {
+	padding: 12px 20px 12px 20px;
+}
+
+.konte-team-member__name {
+	margin: 0;
+}
+
+.konte-team-member__job {
+	@include font-size(14/16);
+	color: $color__gray;
+}
+
+.konte-team-member__socials {
+	float: right;
+
+	a {
+		@include font-size(12/16);
+		color: $color__gray;
+		margin-left: 20px;
+
+		&:hover {
+			color: $color__dark;
+		}
+
+		&:first-child {
+			margin-left: 0;
+		}
+	}
+}

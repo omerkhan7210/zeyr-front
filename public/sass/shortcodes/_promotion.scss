@@ -1,0 +1,76 @@
+.konte-promotion {
+	font-size: 10px;
+	text-align: center;
+	padding: 30px 10px 35px 10px;
+
+	.konte-button {
+		font-size: 1.1em;
+		font-weight: 600;
+		text-transform: uppercase;
+
+		&:after {
+			border-bottom-width: 1px;
+		}
+	}
+
+	&.layout-inline {
+		padding-top: 14px;
+		padding-bottom: 14px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		.konte-promotion__tagline,
+		.konte-promotion__text {
+			font-size: 1.4em;
+			display: inline-block;
+			margin: 0;
+		}
+
+		.konte-promotion__tagline {
+			margin-right: 6px;
+			opacity: 0.8;
+
+			&:after {
+				content: "-";
+				display: inline-block;
+				margin-left: 6px;
+			}
+		}
+
+		.konte-button {
+			padding-bottom: 0;
+			margin-left: 40px;
+
+			&:after {
+				width: 0;
+				transition: width 0.4s;
+			}
+
+			&:hover:after {
+				width: 100%;
+			}
+		}
+	}
+}
+
+.konte-promotion__tagline {
+	font-size: 1.2em;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.konte-promotion__text {
+	font-size: 2.4em;
+	margin: 25px 0;
+}
+
+.konte-promotion--has-border {
+	border: 1px solid;
+}
+
+.konte-promotion--bk {
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

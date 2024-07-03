@@ -1,0 +1,87 @@
+.section-video-two video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    padding: 0 40px;
+    cursor: pointer
+}
+
+.section-video-two .video-two-container {
+    position: relative
+}
+
+.section-video-two .video-two-container:hover .video-control-icons {
+    opacity: 1;
+    transition: all .3s
+}
+
+.section-video-two .video-control-icons {
+    position: absolute;
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background-color: #fff;
+    transition: all .3s
+}
+
+.section-video-two .video-control-icons.hidden {
+    display: none
+}
+
+.section-video-two .video-control-icons .pause {
+    display: none;
+    transform: scale(1.3)
+}
+
+.section-video-two .video-control-icons svg,
+.section-video-two .video-control-icons.playing .pause {
+    display: block
+}
+
+.section-video-two .video-control-icons.playing .play {
+    display: none
+}
+
+.section-video-two .video-control-icons svg {
+    width: 13px;
+    height: 13px
+}
+
+.section-video-two .video-control-icons span {
+    height: 13px
+}
+
+.section-video-two .subheading {
+    margin-bottom: 6px;
+    letter-spacing: .04em;
+    text-transform: uppercase
+}
+
+.section-video-two .cta-container {
+    padding-bottom: 12px
+}
+
+@media (max-width: 768px) {
+    .section-video-two video {
+        padding: 0
+    }
+    .section-video-two .video-control-icons {
+        opacity: 1
+    }
+    .video-two-container {
+        align-items: center
+    }
+    .section-video-two .content--wrapper {
+        position: initial
+    }
+}
+
+/*# sourceMappingURL=/cdn/shop/t/300/assets/video-two.css.map?v=58203298881343808591689270881 */
