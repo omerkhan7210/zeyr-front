@@ -6,7 +6,7 @@ import { Header2 } from "./Components/HeaderFooter/Header/Header";
 import Footer from "./Components/HeaderFooter/Footer/Footer";
 import SearchModal from "./Components/HeaderFooter/Search/SearchModal";
 import CartSidebar from "./Components/Cart/CartSidebar";
-//STATIC PAGES
+//STATIC PAGESs
 import HomePage from "./Components/Static/HomePage";
 import AboutPage from "./Components/Static/AboutPage";
 import ContactPage from "./Components/Static/ContactPage";
