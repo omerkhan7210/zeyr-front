@@ -31,14 +31,20 @@ jobs:
     needs: build
 
     steps:
-      - name: Executing remote SSH commands using SSH key
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST_DNS }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            sudo yum -y update
-            sudo docker pull omerkhan7210/zeyr-front:latest
-            sudo docker rm -f zeyr-front-container || true
-            sudo docker run -d -p 3000:80 --name zeyr-front-container omerkhan7210/zeyr-front
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+
+      - name: Pull latest Docker image
+        run: docker pull omerkhan7210/zeyr-front:latest
+
+      - name: Stop and remove existing container
+        run: |
+          if [ "$(docker ps -q -f name=zeyr-front-container)" ]; then
+            docker rm -f zeyr-front-container
+          fi
+
+      - name: Run new container
+        run: docker run -d -p 3000:80 --name zeyr-front-container omerkhan7210/zeyr-front
