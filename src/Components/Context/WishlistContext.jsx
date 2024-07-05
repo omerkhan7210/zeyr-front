@@ -5,7 +5,7 @@ import {
   addToWishlist,
   removeFromWishlist,
   updateWishlistCount,
-} from "../Actions/wishlistActions";
+} from "src/Components/Actions/WishlistActions";
 import axios from "axios";
 import { hostLink } from "../Hostlink/hostlink";
 
