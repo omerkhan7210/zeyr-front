@@ -1,43 +1,44 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ProductDetailsContext } from "../ProductDetailPage";
-import {CartContextC} from '../../../Context/CartContext'
+import { CartContextC } from "../../../Context/CartContext";
 import { hostLink } from "../../../Hostlink/hostlink";
 import { NotifyModal } from "./NotifyModal";
 
 export const VariantsDrawer = ({ isNavDrawerOpen }) => {
   const { product, handleNavbar } = useContext(ProductDetailsContext);
-  const { addToCart,setLoading,loading } = useContext(CartContextC);
+  const { addToCart, setLoading, loading } = useContext(CartContextC);
   const [message, setMessage] = useState(
     "Please Select All Variations before adding to cart"
   );
   const [selectedVariations, setSelectedVariations] = useState({});
   const [allVariationsSelected, setAllVariationsSelected] = useState(false);
-  const [hasColor,setHasColor] = useState(false)
-  const [hasSize,setHasSize] = useState(false)
+  const [hasColor, setHasColor] = useState(false);
+  const [hasSize, setHasSize] = useState(false);
 
   const groupedVariations = {};
- 
-  const handleSelectChange = (attributeType,groupedVariations, event) => {
+
+  const handleSelectChange = (attributeType, groupedVariations, event) => {
     const newValue = event.target.value;
     // Create a copy of the selectedVariations object
     const updatedVariations = { ...selectedVariations };
-  
+
     // Set the selected variation for the specified attribute type
     updatedVariations[attributeType] = newValue;
 
-    const selectedVariation = groupedVariations[attributeType].attributeValues.find((variation) => variation.attributeValue === newValue);
+    const selectedVariation = groupedVariations[
+      attributeType
+    ].attributeValues.find(
+      (variation) => variation.attributeValue === newValue
+    );
 
     if (selectedVariation && selectedVariation.attributeimg) {
       updatedVariations.attributeimg = selectedVariation.attributeimg;
-
     } else {
       // If no attribute image is found, clear the attributeImage in the state
       updatedVariations.attributeimg = null;
     }
-  
 
     setSelectedVariations(updatedVariations);
-    
   };
 
   // Function to check if both color and size variations are selected
@@ -45,31 +46,25 @@ export const VariantsDrawer = ({ isNavDrawerOpen }) => {
     setAllVariationsSelected(checkVariationsSelected());
   }, [selectedVariations]);
 
-  
   const checkVariationsSelected = () => {
-    product.variations.map((v)=>{
-      v.attributeValues.map((av)=>{
-      av.attributeType === 'color' && setHasColor(true)
-      av.attributeType === 'size' && setHasSize(true)
-    })
-  })
-    if(hasColor && hasSize){
+    product.variations.map((v) => {
+      v.attributeValues.map((av) => {
+        av.attributeType === "color" && setHasColor(true);
+        av.attributeType === "size" && setHasSize(true);
+      });
+    });
+    if (hasColor && hasSize) {
       return (
         selectedVariations.color !== undefined &&
         selectedVariations.size !== undefined
       );
-    }else if(hasColor && !hasSize){
-      return (
-        selectedVariations.color !== undefined
-      );
-    }else if(hasSize && !hasColor){
-      return (
-        selectedVariations.size !== undefined
-      );
+    } else if (hasColor && !hasSize) {
+      return selectedVariations.color !== undefined;
+    } else if (hasSize && !hasColor) {
+      return selectedVariations.size !== undefined;
     }
-    
   };
-  
+
   const handleopencartsidebar = () => {
     const cartSidebar = document.querySelector(".cart-drawer");
     cartSidebar.classList.add("drawer--active");
@@ -78,11 +73,10 @@ export const VariantsDrawer = ({ isNavDrawerOpen }) => {
   const handleAddToCart = async (e) => {
     e.preventDefault();
     if (checkVariationsSelected()) {
-     await addToCart(product, selectedVariations, 1);
-    
-      handleNavbar("nav")     
+      await addToCart(product, selectedVariations, 1);
+
+      handleNavbar("nav");
       handleopencartsidebar();
-     
     } else {
       if (selectedVariations.color === undefined) {
         setMessage("Please select color before adding to cart.");
@@ -95,7 +89,7 @@ export const VariantsDrawer = ({ isNavDrawerOpen }) => {
         setMessage("Please select all variations before adding to cart.");
       }
     }
-    setSelectedVariations({})
+    setSelectedVariations({});
   };
   return (
     <aside>
@@ -130,7 +124,10 @@ export const VariantsDrawer = ({ isNavDrawerOpen }) => {
           onClick={() => handleNavbar("nav")}
           className="drawer--overlay"
         />
-        <div className="drawer__container drawer__container-shipping" style={{ padding: "100px 20px" }}>
+        <div
+          className="drawer__container drawer__container-shipping"
+          style={{ padding: "100px 20px" }}
+        >
           <div className="drawer__container-inner">
             <button
               id="drawerClose"
@@ -162,7 +159,10 @@ export const VariantsDrawer = ({ isNavDrawerOpen }) => {
               className="drawer-content"
               style={{ height: "75vh", overflowY: "auto" }}
             >
-              <div className="size-select-drawer__links flex aic jce" onClick={()=>handleNavbar("sizeGuide")}>
+              <div
+                className="size-select-drawer__links flex aic jce"
+                onClick={() => handleNavbar("sizeGuide")}
+              >
                 <span
                   id="sizeGuideTrigger"
                   className="link-styled size-guide-trigger-flyout flex jce aic"
@@ -212,92 +212,139 @@ export const VariantsDrawer = ({ isNavDrawerOpen }) => {
                   </span>
                   Size Guide
                 </span>
-                
               </div>
               {product.variations.forEach((v) => {
-  v.attributeValues.forEach((av) => {
-    if (!groupedVariations[av.attributeType]) {
-      groupedVariations[av.attributeType] = {
-        attributeType: av.attributeType,
-        attributeValues: [],
-        attributeprice: v.attributeprice,
-        attributestock: v.attributestock,
-        variationid: v.variationid,
-      };
-    }
+                v.attributeValues.forEach((av) => {
+                  if (!groupedVariations[av.attributeType]) {
+                    groupedVariations[av.attributeType] = {
+                      attributeType: av.attributeType,
+                      attributeValues: [],
+                      attributeprice: v.attributeprice,
+                      attributestock: v.attributestock,
+                      variationid: v.variationid,
+                    };
+                  }
 
-   
-    groupedVariations[av.attributeType].attributeValues.push(av);
-    
-  });
-})
-}
-<NotifyModal/>
-{Object.entries(groupedVariations).map(([attributeType, attributeValues]) => (
-  <div className="variant-options flex flex--column no-js-hidden" key={attributeType}>
-    <h6 className="variant-heading">{`Select ${attributeType}`}</h6>
-    {attributeValues.attributeValues.map((variation) => (
-      <fieldset className="size js product-form__input product-form__input--radios flex flex--wrap flex--column" key={variation.id}>
-        <legend className="form__label">
-          <span>Select {attributeType}: </span>
-        </legend>
-        <div className="variant-option-wrapper" key={variation.attributeValue}>
-          <input
-            value={variation.attributeValue}
-            checked={selectedVariations[attributeType] === variation.attributeValue}
-            onChange={(e) => handleSelectChange(attributeType,groupedVariations, e)}
-            type="radio"
-            id={`template-${variation.id}`}
-            className={`variant-option ${variation.attributestock === 0 && "sold-out"}`}
-          />
-          <label
-            htmlFor={`template-${variation.id}`}
-            className="body-1 flex aic"
-          >
-            <span className="size-option-value">
-              {variation.attributeValue}
-            </span>
-            
-            
-            {variation.attributestock !== 0 && attributeType === "color" && variation.attributeimg && (
-              <img
-                style={{ width: '40px' }}
-                src={`${hostLink}/uploads/${variation.attributeimg}`}
-                alt={`${variation.attributeValue} Image`}
-                className="attribute-image"
-              />
-            )}
+                  groupedVariations[av.attributeType].attributeValues.push(av);
+                });
+              })}
+              {/* <NotifyModal/> */}
+              {Object.entries(groupedVariations).map(
+                ([attributeType, attributeValues]) => (
+                  <div
+                    className="variant-options flex flex--column no-js-hidden"
+                    key={attributeType}
+                  >
+                    <h6 className="variant-heading">{`Select ${attributeType}`}</h6>
+                    {attributeValues.attributeValues.map((variation) => (
+                      <fieldset
+                        className="size js product-form__input product-form__input--radios flex flex--wrap flex--column"
+                        key={variation.id}
+                      >
+                        <legend className="form__label">
+                          <span>Select {attributeType}: </span>
+                        </legend>
+                        <div
+                          className="variant-option-wrapper"
+                          key={variation.attributeValue}
+                        >
+                          <input
+                            value={variation.attributeValue}
+                            checked={
+                              selectedVariations[attributeType] ===
+                              variation.attributeValue
+                            }
+                            onChange={(e) =>
+                              handleSelectChange(
+                                attributeType,
+                                groupedVariations,
+                                e
+                              )
+                            }
+                            type="radio"
+                            id={`template-${variation.id}`}
+                            className={`variant-option ${
+                              variation.attributestock === 0 && "sold-out"
+                            }`}
+                          />
+                          <label
+                            htmlFor={`template-${variation.id}`}
+                            className="body-1 flex aic"
+                          >
+                            <span className="size-option-value">
+                              {variation.attributeValue}
+                            </span>
 
-              {
-                variation.attributestock === 0 &&
+                            {variation.attributestock !== 0 &&
+                              attributeType === "color" &&
+                              variation.attributeimg && (
+                                <img
+                                  style={{ width: "40px" }}
+                                  src={`${hostLink}/uploads/${variation.attributeimg}`}
+                                  alt={`${variation.attributeValue} Image`}
+                                  className="attribute-image"
+                                />
+                              )}
 
-                <div className="variant-option-labels body-2">
-                <div className="variant-option-labels__sold-out flex flex--column aie" style={{ display: 'flex' }}>
-                  <span className="variant-option__sold-out" style={{ color: '#000' }}>Sold out</span>
-                  <span className="variant-option__notify flex jce aic" style={{ color: '#000' }}>
-                    <span className="flex" style={{ paddingRight: 4 }}>
-                      <svg width={8} height={9} viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" clipRule="evenodd" d="M2.56159 1.25585C3.04555 0.771889 3.70195 0.5 4.38638 0.5C5.07081 0.5 5.72721 0.771889 6.21117 1.25585C6.69514 1.73982 6.96703 2.39622 6.96703 3.08065C6.96703 4.2089 7.20809 4.89637 7.42013 5.28511C7.52687 5.48079 7.6291 5.6061 7.69655 5.67729C7.73041 5.71303 7.75586 5.73552 7.76922 5.74664C7.77387 5.75052 7.77707 5.75303 7.77864 5.75424C7.96141 5.88181 8.04197 6.11286 7.97714 6.32699C7.91123 6.54467 7.7106 6.69355 7.48316 6.69355H1.28961C1.06217 6.69355 0.861533 6.54467 0.795624 6.32699C0.730792 6.11286 0.811351 5.88182 0.994117 5.75424C0.995692 5.75303 0.998886 5.75052 1.00354 5.74664C1.0169 5.73552 1.04235 5.71303 1.07621 5.67729C1.14366 5.6061 1.2459 5.48079 1.35263 5.28511C1.56467 4.89637 1.80574 4.2089 1.80574 3.08065C1.80574 2.39622 2.07762 1.73982 2.56159 1.25585Z" fill="black" />
-                        <path d="M5.6783 7.46784C5.6783 8.18043 5.1006 8.7581 4.38798 8.7581C3.67535 8.7581 3.09766 8.18043 3.09766 7.46784C3.52776 7.46787 3.67535 7.46787 4.38798 7.46787C5.1006 7.46787 5.24819 7.46777 5.6783 7.46784Z" fill="black" />
-                      </svg>
-                    </span>
-                    Get Notified
-                  </span>
-                </div>
-                <div className="variant-option-labels__last-item flex flex--column aie">
-                  <span className="variant-option__last-item" style={{ color: '#000' }}>Only Item Left</span>
-                </div>
-              </div>
-              }
-
-          </label>
-        </div>
-      </fieldset>
-    ))}
-  </div>
-))}
-
-
+                            {variation.attributestock === 0 && (
+                              <div className="variant-option-labels body-2">
+                                <div
+                                  className="variant-option-labels__sold-out flex flex--column aie"
+                                  style={{ display: "flex" }}
+                                >
+                                  <span
+                                    className="variant-option__sold-out"
+                                    style={{ color: "#000" }}
+                                  >
+                                    Sold out
+                                  </span>
+                                  <span
+                                    className="variant-option__notify flex jce aic"
+                                    style={{ color: "#000" }}
+                                  >
+                                    <span
+                                      className="flex"
+                                      style={{ paddingRight: 4 }}
+                                    >
+                                      <svg
+                                        width={8}
+                                        height={9}
+                                        viewBox="0 0 8 9"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          fillRule="evenodd"
+                                          clipRule="evenodd"
+                                          d="M2.56159 1.25585C3.04555 0.771889 3.70195 0.5 4.38638 0.5C5.07081 0.5 5.72721 0.771889 6.21117 1.25585C6.69514 1.73982 6.96703 2.39622 6.96703 3.08065C6.96703 4.2089 7.20809 4.89637 7.42013 5.28511C7.52687 5.48079 7.6291 5.6061 7.69655 5.67729C7.73041 5.71303 7.75586 5.73552 7.76922 5.74664C7.77387 5.75052 7.77707 5.75303 7.77864 5.75424C7.96141 5.88181 8.04197 6.11286 7.97714 6.32699C7.91123 6.54467 7.7106 6.69355 7.48316 6.69355H1.28961C1.06217 6.69355 0.861533 6.54467 0.795624 6.32699C0.730792 6.11286 0.811351 5.88182 0.994117 5.75424C0.995692 5.75303 0.998886 5.75052 1.00354 5.74664C1.0169 5.73552 1.04235 5.71303 1.07621 5.67729C1.14366 5.6061 1.2459 5.48079 1.35263 5.28511C1.56467 4.89637 1.80574 4.2089 1.80574 3.08065C1.80574 2.39622 2.07762 1.73982 2.56159 1.25585Z"
+                                          fill="black"
+                                        />
+                                        <path
+                                          d="M5.6783 7.46784C5.6783 8.18043 5.1006 8.7581 4.38798 8.7581C3.67535 8.7581 3.09766 8.18043 3.09766 7.46784C3.52776 7.46787 3.67535 7.46787 4.38798 7.46787C5.1006 7.46787 5.24819 7.46777 5.6783 7.46784Z"
+                                          fill="black"
+                                        />
+                                      </svg>
+                                    </span>
+                                    Get Notified
+                                  </span>
+                                </div>
+                                <div className="variant-option-labels__last-item flex flex--column aie">
+                                  <span
+                                    className="variant-option__last-item"
+                                    style={{ color: "#000" }}
+                                  >
+                                    Only Item Left
+                                  </span>
+                                </div>
+                              </div>
+                            )}
+                          </label>
+                        </div>
+                      </fieldset>
+                    ))}
+                  </div>
+                )
+              )}
             </div>
 
             <div className="drawer-footer flex jcc">
@@ -391,9 +438,6 @@ export const VariantsDrawer = ({ isNavDrawerOpen }) => {
                 </div>
               </div>
             </div>
-
-          
-
           </div>
         </div>
       </div>

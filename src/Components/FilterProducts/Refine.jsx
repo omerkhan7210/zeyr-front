@@ -1,91 +1,96 @@
 /* eslint-disable react/prop-types */
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FilterTypes } from "./FilterTypes";
 import { Sort } from "./Sort";
 import { ColorSize } from "./ColorSize";
 import { RefineMobile } from "./FilterMobile/RefineMobile";
 import { Availibility } from "./Availibility";
 
-export const Refine = ({setFilterOptions,setFiltersActive}) => {
+export const Refine = ({ setFilterOptions, setFiltersActive }) => {
+  const [activeLink, setActiveLink] = useState("");
+  const [active, setActive] = useState(false);
+  const [availability, setAvailibility] = useState([]);
+  const [colors, setColors] = useState([]);
+  const [sizes, setSizes] = useState([]);
+  const [sort, setSort] = useState("");
+  let combinedArray = [...availability, ...colors, ...sizes];
 
-  const [activeLink,setActiveLink] = useState('')
-  const [active,setActive] = useState(false)
-  const [availability,setAvailibility] = useState([])
-  const [colors,setColors] = useState([])
-  const [sizes,setSizes] = useState([])
-  const [sort,setSort] = useState('')
-let combinedArray = [...availability, ...colors, ...sizes];
+  useEffect(() => {
+    // Check if there are no filters selected and retrieve saved filters from localStorage
+    if (
+      availability.length === 0 &&
+      sizes.length === 0 &&
+      colors.length === 0
+    ) {
+      const savedFiltersColors = localStorage.getItem("savedFiltersColors");
+      const savedFiltersSizes = localStorage.getItem("savedFiltersSizes");
+      const savedFiltersAvailability = localStorage.getItem(
+        "savedFiltersAvailability"
+      );
+      if (savedFiltersColors) {
+        setColors(JSON.parse(savedFiltersColors)); // Parse the saved JSON string into an array
+      }
+      if (savedFiltersSizes) {
+        setSizes(JSON.parse(savedFiltersSizes));
+      }
+      if (savedFiltersAvailability) {
+        setAvailibility(JSON.parse(savedFiltersAvailability));
+      }
+    } else {
+      // Save the combined array to localStorage
+      localStorage.setItem("savedFiltersColors", JSON.stringify(colors));
+      // Save the combined array to localStorage
+      localStorage.setItem("savedFiltersSizes", JSON.stringify(sizes));
+      // Save the combined array to localStorage
+      localStorage.setItem(
+        "savedFiltersAvailability",
+        JSON.stringify(availability)
+      );
+    }
 
-useEffect(()=>{
-  // Check if there are no filters selected and retrieve saved filters from localStorage
-if (availability.length === 0 && sizes.length === 0 && colors.length === 0) {
-  const savedFiltersColors = localStorage.getItem('savedFiltersColors');
-  const savedFiltersSizes = localStorage.getItem('savedFiltersSizes');
-  const savedFiltersAvailability = localStorage.getItem('savedFiltersAvailability');
-  if (savedFiltersColors) {
-    setColors(JSON.parse(savedFiltersColors)) // Parse the saved JSON string into an array
-   }
-  if(savedFiltersSizes){
-    setSizes(JSON.parse(savedFiltersSizes));
-  }
-  if(savedFiltersAvailability){
-    setAvailibility(JSON.parse(savedFiltersAvailability))
-  }
- }else{
-  
-// Save the combined array to localStorage
-localStorage.setItem('savedFiltersColors', JSON.stringify(colors));
-// Save the combined array to localStorage
-localStorage.setItem('savedFiltersSizes', JSON.stringify(sizes));
-// Save the combined array to localStorage
-localStorage.setItem('savedFiltersAvailability', JSON.stringify(availability));
- }
-
- setFilterOptions({
-  colors,
-  sizes,
-  availability
- })
-},[colors,sizes,availability])
-
+    setFilterOptions({
+      colors,
+      sizes,
+      availability,
+    });
+  }, [colors, sizes, availability]);
 
   const handlefiltersidebar = () => {
-    setActive(!active)
-  }
-  const handleFilter = async (e)=>{
-    e.preventDefault()
-    setFiltersActive(true)
-    handlefiltersidebar()
-  }
+    setActive(!active);
+  };
+  const handleFilter = async (e) => {
+    e.preventDefault();
+    setFiltersActive(true);
+    handlefiltersidebar();
+  };
 
-  const handleClear = async (e)=>{
-    e.preventDefault()
-    setFiltersActive(false)
+  const handleClear = async (e) => {
+    e.preventDefault();
+    setFiltersActive(false);
     setFilterOptions({
-      colors:[],
-      sizes:[],
-      availability:[]
-    })
-    setColors([])
-    setSizes([])
-    setAvailibility([])
-// Save the combined array to localStorage
-localStorage.setItem('savedFiltersColors', []);
-// Save the combined array to localStorage
-localStorage.setItem('savedFiltersSizes', []);
-// Save the combined array to localStorage
-localStorage.setItem('savedFiltersAvailability',[]);
-  
-    combinedArray =[]
-    handlefiltersidebar()
-  }
-      
+      colors: [],
+      sizes: [],
+      availability: [],
+    });
+    setColors([]);
+    setSizes([]);
+    setAvailibility([]);
+    // Save the combined array to localStorage
+    localStorage.setItem("savedFiltersColors", []);
+    // Save the combined array to localStorage
+    localStorage.setItem("savedFiltersSizes", []);
+    // Save the combined array to localStorage
+    localStorage.setItem("savedFiltersAvailability", []);
+
+    combinedArray = [];
+    handlefiltersidebar();
+  };
+
   return (
     <aside
       className="toolbar flex jcb toolbar--sticky toolbar-layout--alt"
       data-id="template--14940996862017__product-grid"
       style={{ zIndex: active ? 1 : 0 }}
-
     >
       <div className="toolbar__inner flex">
         <div className="toolbar__left flex">
@@ -133,16 +138,16 @@ localStorage.setItem('savedFiltersAvailability',[]);
                 ></path>
               </svg>
               Refine
-              
-              {combinedArray && combinedArray.length > 0 && 
-                    
-              <span className="current-filters-selected" hidden="">
-                / {combinedArray.length}
-              </span>
-              }
+              {combinedArray && combinedArray.length > 0 && (
+                <span className="current-filters-selected" hidden="">
+                  / {combinedArray.length}
+                </span>
+              )}
             </button>
             <div
-              className={`drawer drawer--filter desktop ${active && "drawer--active"}`}
+              className={`drawer drawer--filter desktop ${
+                active && "drawer--active"
+              }`}
               tabIndex="-1"
               role="dialog"
               aria-modal="true"
@@ -186,57 +191,66 @@ localStorage.setItem('savedFiltersAvailability',[]);
                       </a>
                     </div>
                   </div>
-                 
+
                   <form id="FacetFiltersForm" className="body-2">
-                   <FilterTypes 
-                   activeLink={activeLink} 
-                   setActiveLink={setActiveLink} 
-                   availability={availability}
-                   colors={colors}
-                   sizes={sizes}
-                   />
+                    <FilterTypes
+                      activeLink={activeLink}
+                      setActiveLink={setActiveLink}
+                      availability={availability}
+                      colors={colors}
+                      sizes={sizes}
+                    />
                     <ul className="facet-filters__filters-container">
-                     <Sort 
-                     activeLink={activeLink} 
-                     sort={sort} 
-                     setSort={setSort}
-                     />
+                      <Sort
+                        activeLink={activeLink}
+                        sort={sort}
+                        setSort={setSort}
+                      />
 
-                     <Availibility 
-                     activeLink={activeLink} 
-                     availibility={availability} 
-                     setAvailibility={setAvailibility}
-                     />
+                      <Availibility
+                        activeLink={activeLink}
+                        availibility={availability}
+                        setAvailibility={setAvailibility}
+                      />
 
-                      <ColorSize 
-                      activeLink={activeLink} 
-                      colors={colors} 
-                      setColors={setColors} 
-                      sizes={sizes} 
-                      setSizes={setSizes}
+                      <ColorSize
+                        activeLink={activeLink}
+                        colors={colors}
+                        setColors={setColors}
+                        sizes={sizes}
+                        setSizes={setSizes}
                       />
                     </ul>
                   </form>
                 </div>
                 <div className="drawer__footer">
                   <div className="btn btn--tertiary body-1">
-                    <a href="#" onClick={handleClear}>Clear All</a>
+                    <a href="#" onClick={handleClear}>
+                      Clear All
+                    </a>
                   </div>
                   <button
                     type="button"
                     className="btn btn--primary drawer-close body-1"
                     onClick={handleFilter}
                   >
-                    View 
-                    {combinedArray && combinedArray.length > 0 && 
-                    
-                    <span className="current-filters-selected" style={{display: 'inline',marginLeft:'5px'}}>{ combinedArray.length}</span>
-                    }
+                    View
+                    {combinedArray && combinedArray.length > 0 && (
+                      <span
+                        className="current-filters-selected"
+                        style={{ display: "inline", marginLeft: "5px" }}
+                      >
+                        {combinedArray.length}
+                      </span>
+                    )}
                   </button>
                 </div>
               </div>
             </div>
-          <RefineMobile/>
+            <RefineMobile
+              setFilterOptions={setFilterOptions}
+              setFiltersActive={setFiltersActive}
+            />
           </div>
         </div>
       </div>
